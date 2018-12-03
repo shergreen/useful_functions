@@ -15,10 +15,17 @@ def loglogplot(figsize=(7,5.8)):
     ax.tick_params(axis='both', which='minor', colors='black', width=1.0, length=3.0)
     return fig, ax
 
-def plot(figsize=(7,5.8)): #figure out what the standard figure size is for journal articles...
+def plot(figsize=(7,5.8),loglog=False,semilogx=False,semilogy=False): #figure out what the standard figure size is for journal articles...
     fig = plt.figure(figsize=figsize)
     ax = fig.add_subplot(111)
+    if(loglog == True):
+        ax.loglog()
+    if(semilogx == True):
+        ax.semilogx()
+    if(semilogy == True):
+        ax.semilogy()
     ax.yaxis.set_ticks_position('both')
     ax.xaxis.set_ticks_position('both')
     ax.tick_params(axis='both', which='minor', colors='black', width=1.0, length=3.0)
     return fig, ax
+
