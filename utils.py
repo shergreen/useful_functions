@@ -23,5 +23,5 @@ def autobin(bin_min, bin_max, nbins, arr):
     """
     bin_edges, bin_centers, bins = logbins(bin_min, bin_max, nbins)
     for i in range(0, nbins):
-        bins[i] = np.sum(np.logical_and(arr >= bin_edges[i], arr <= bin_edges[i+1])
+        bins[i] = np.sum(np.logical_and(arr >= bin_edges[i], arr <= bin_edges[i+1]))
     return bin_edges, bin_centers, bins
