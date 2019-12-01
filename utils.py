@@ -15,22 +15,27 @@ def logbins(bin_min, bin_max, nbins):
     return bin_edges, bin_centers, bins
 
 
-def autobin(bin_min, bin_max, nbins, arr, typ='sum'):
+def autobin(bin_min, bin_max, nbins, bin_arr, calc_arr, typ='sum'):
     """
-    Same as logbins, but automatically bins the values in arr into the bins return.
-    This routine makes no assumption about the values of arr, so one needs that the
-    requested bins cover the range of interest.
+    Generates nbins bins, logarithmically-spaced, in the range bin_min to bin_max.
+    Using these bins, then computes the sum/count/or average of the quantities
+    in calc_arr corresponding to entries of bin_arr within each bin.
 
     It's possible that NumPy has a functionality that already does something like
     this, but I've written this code snippet enough times to make it a function.
+
+    TODO: Add functionality for choosing log or linear bins.
+    TODO: Get this to work with two arrays: one for the binning and the other for
+          the computing
     """
     bin_edges, bin_centers, bins = logbins(bin_min, bin_max, nbins)
     for i in range(0, nbins):
-        msk = np.logical_and(arr >= bin_edges[i], arr <= bin_edges[i+1])
+        msk = np.logical_and(
+            bin_arr >= bin_edges[i], bin_arr <= bin_edges[i+1])
         if(typ == 'sum'):
-            bins[i] = np.sum(arr[msk])
+            bins[i] = np.sum(calc_arr[msk])
         elif(typ == 'count'):
             bins[i] = np.sum(msk)
         elif(typ == 'average'):
-            bins[i] = np.sum(arr[msk]) / np.sum(msk)
+            bins[i] = np.sum(calc_arr[msk]) / np.sum(msk)
     return bin_edges, bin_centers, bins
