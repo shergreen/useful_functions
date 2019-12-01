@@ -29,8 +29,8 @@ def autobin(bin_min, bin_max, nbins, arr, typ='sum'):
         msk = np.logical_and(arr >= bin_edges[i], arr <= bin_edges[i+1])
         if(typ == 'sum'):
             bins[i] = np.sum(arr[msk])
-        elif(typ == 'count')
-        bins[i] = np.sum(msk)
+        elif(typ == 'count'):
+            bins[i] = np.sum(msk)
         elif(typ == 'average'):
             bins[i] = np.sum(arr[msk]) / np.sum(msk)
     return bin_edges, bin_centers, bins
