@@ -15,7 +15,7 @@ def logbins(bin_min, bin_max, nbins):
     return bin_edges, bin_centers, bins
 
 
-def autobin(bin_min, bin_max, nbins, bin_arr, calc_arr, typ='sum'):
+def autobin(bin_min, bin_max, nbins, bin_arr, calc_arr, typ='std'):
     """
     Generates nbins bins, logarithmically-spaced, in the range bin_min to bin_max.
     Using these bins, then computes the sum/count/or average of the quantities
@@ -37,5 +37,9 @@ def autobin(bin_min, bin_max, nbins, bin_arr, calc_arr, typ='sum'):
         elif(typ == 'count'):
             bins[i] = np.sum(msk)
         elif(typ == 'average'):
-            bins[i] = np.sum(calc_arr[msk]) / np.sum(msk)
+            bins[i] = np.average(calc_arr[msk])
+        elif(typ == 'std'):
+            bins[i] = np.std(calc_arr[msk])
+        elif(typ == '1684'):
+            bins[i] = (np.percentile(calc_arr[msk], 84) - np.percentile(calc_arr[msk], 16)) / 2.0
     return bin_edges, bin_centers, bins
